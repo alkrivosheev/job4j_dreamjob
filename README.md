@@ -1,7 +1,4 @@
 # job4j_dreamjob
-# job4j_dreamjob
-# job4j_dreamjob
-# job4j_dreamjob# job4j_dreamjob## job4j_dreamjob# job4j_dreamjob
-# job4j_dreamjob
-# job4j_dreamjob
-# job4j_dreamjob
+Мы будем использовать Spring (в частности Spring MVC и Spring Boot) как основной фреймворк для разработки. Однако глубокий разбор деталей фреймворка отложим до отдельного блока, посвящённого Spring.
+
+Основная цель данного блока — понять, как устроена архитектура веб-приложений.

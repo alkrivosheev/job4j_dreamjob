@@ -9,9 +9,9 @@ public class Vacancy {
 
     private String title;
 
-    String description;
+    private String description;
 
-    LocalDateTime creationDate;
+    private LocalDateTime creationDate;
 
     public Vacancy(int id, String title, String description) {
         this.id = id;

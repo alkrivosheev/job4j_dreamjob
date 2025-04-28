@@ -39,9 +39,11 @@ public class Vacancy {
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public LocalDateTime getCreationDate() {
         return creationDate;
     }

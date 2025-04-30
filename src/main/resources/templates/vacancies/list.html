@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/header :: header"></head>
+<head th:insert="~{fragments/header :: header}"></head>
 <body>
-<div th:replace="fragments/navigation :: navigation"></div>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
 <div class="container">
     <div class="row">
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Имя</th>
+                <th scope="col">Название</th>
+                <th scope="col">Дата создания</th>
             </tr>
             </thead>
             <tbody>
@@ -17,12 +18,11 @@
                 <td th:text="${vacancy.id}" />
                 <td th:text="${vacancy.title}" />
                 <td th:text="${vacancy.creationDate}" />
-                <td th:text="${vacancy.description}" />
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<footer th:include="fragments/footer :: footer"></footer>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:insert="fragments/header :: header"></head>
+<head th:insert="~{fragments/header :: header}"></head>
 <body>
-<div th:replace="fragments/navigation :: navigation"></div>
+<div th:replace="~{fragments/navigation :: navigation}"></div>
 <div class="container">
     <div class="row">
         <table class="table">
@@ -10,6 +10,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Дата регистрации</th>
             </tr>
             </thead>
             <tbody>
@@ -17,12 +18,11 @@
                 <td th:text="${candidate.id}" />
                 <td th:text="${candidate.name}" />
                 <td th:text="${candidate.creationDate}" />
-                <td th:text="${candidate.description}" />
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<footer th:insert="fragments/footer :: footer"></footer>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
 </body>
 </html>

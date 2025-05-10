@@ -8,6 +8,7 @@
 .springBeans
 .sts4-cache
 .iml
+.idea/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

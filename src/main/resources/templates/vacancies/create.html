@@ -7,22 +7,22 @@
     <form class="mt-3" th:action="@{/vacancies/create}" method="post">
         <div class="mb-3">
             <label for="title" class="form-label"><b>Название</b></label>
-            <input type="text" class="form-control" id="title" name="title"
-                   placeholder="Предлагая должность, например, Ведущий Java разработчик">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Предлагая должность, например, Ведущий Java разработчик">
         </div>
         <div class="mb-3">
             <label for="description" class="form-label"><b>Описание</b></label>
-            <textarea class="form-control" id="description" name="description" rows="25"
-                      placeholder="Опишите требования к кандидату"></textarea>
+            <textarea class="form-control" id="description" name="description" rows="25" placeholder="Опишите требования к кандидату"></textarea>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="visible" class="form-check-input" id="visible">
+            <label class="form-check-label" for="visible">Опубликовать</label>
         </div>
         <div class="mb-3 row">
             <div class="col-6"></div>
             <div class="col-6">
                 <div class="row">
-                    <div class="col-6"><a class="btn btn-danger w-100"
-                                          th:href="@{/vacancies}">Отмена</a></div>
-                    <div class="col-6"><button class="btn btn-primary w-100"
-                                               type="submit">Сохранить</button>
+                    <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/vacancies}">Отмена</a></div>
+                    <div class="col-6"><button class="btn btn-primary w-100" type="submit">Сохранить</button>
                     </div>
                 </div>
             </div>

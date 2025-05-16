@@ -20,12 +20,12 @@ public class MemoryCandidateRepository implements CandidateRepository {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     public MemoryCandidateRepository() {
-        save(new Candidate(0, "Ivanov Artem Sergeevich", "Software Engineer", LocalDateTime.now(), 1));
-        save(new Candidate(0, "Smirnova Anastasiya Dmitrievna", "Marketing Manager", LocalDateTime.now(), 2));
-        save(new Candidate(0, "Kozlov Mikhail Igorevich", "Neurosurgeon", LocalDateTime.now(), 3));
-        save(new Candidate(0, "Novikova Ekaterina Pavlovna", "Art Curator", LocalDateTime.now(), 1));
-        save(new Candidate(0, "Fyodorov Aleksandr Vladimirovich", "Criminal Investigator", LocalDateTime.now(), 2));
-        save(new Candidate(0, "Morozova Olga Andreevna", "Climate Scientist", LocalDateTime.now(), 3));
+        save(new Candidate(0, "Ivanov Artem Sergeevich", "Software Engineer", LocalDateTime.now(), 1, 0));
+        save(new Candidate(0, "Smirnova Anastasiya Dmitrievna", "Marketing Manager", LocalDateTime.now(), 2, 0));
+        save(new Candidate(0, "Kozlov Mikhail Igorevich", "Neurosurgeon", LocalDateTime.now(), 3, 0));
+        save(new Candidate(0, "Novikova Ekaterina Pavlovna", "Art Curator", LocalDateTime.now(), 1, 0));
+        save(new Candidate(0, "Fyodorov Aleksandr Vladimirovich", "Criminal Investigator", LocalDateTime.now(), 2, 0));
+        save(new Candidate(0, "Morozova Olga Andreevna", "Climate Scientist", LocalDateTime.now(), 3, 0));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MemoryCandidateRepository implements CandidateRepository {
         return candidates.computeIfPresent(candidate.getId(), (id, oldCandidate) -> {
             return new Candidate(
                     oldCandidate.getId(), candidate.getName(), candidate.getDescription(),
-                    candidate.getCreationDate(), candidate.getCityId()); }) != null;
+                    candidate.getCreationDate(), candidate.getCityId(), candidate.getFileId()); }) != null;
     }
 
     @Override

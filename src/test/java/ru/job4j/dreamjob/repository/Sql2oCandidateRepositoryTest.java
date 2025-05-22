@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.sql2o.Sql2o;
 import ru.job4j.dreamjob.configuration.DatasourceConfiguration;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.File;
@@ -22,6 +23,8 @@ public class Sql2oCandidateRepositoryTest {
 
     private static Sql2oFileRepository sql2oFileRepository;
 
+    private static Sql2o sql2o;
+
     private static File file;
 
     @BeforeAll
@@ -36,7 +39,7 @@ public class Sql2oCandidateRepositoryTest {
 
         var configuration = new DatasourceConfiguration();
         var datasource = configuration.connectionPool(url, username, password);
-        var sql2o = configuration.databaseClient(datasource);
+        sql2o = configuration.databaseClient(datasource);
 
         sql2oCandidateRepository = new Sql2oCandidateRepository(sql2o);
         sql2oFileRepository = new Sql2oFileRepository(sql2o);
@@ -52,9 +55,9 @@ public class Sql2oCandidateRepositoryTest {
 
     @AfterEach
     public void clearCandidates() {
-        var candidates = sql2oCandidateRepository.findAll();
-        for (var candidate : candidates) {
-            sql2oCandidateRepository.deleteById(candidate.getId());
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("TRUNCATE TABLE candidates");
+            query.executeUpdate();
         }
     }
 

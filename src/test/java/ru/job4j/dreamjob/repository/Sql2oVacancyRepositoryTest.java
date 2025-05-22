@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.sql2o.Sql2o;
 import ru.job4j.dreamjob.configuration.DatasourceConfiguration;
 import ru.job4j.dreamjob.model.File;
 import ru.job4j.dreamjob.model.Vacancy;
@@ -23,6 +24,8 @@ public class Sql2oVacancyRepositoryTest {
 
     private static Sql2oFileRepository sql2oFileRepository;
 
+    private static Sql2o sql2o;
+
     private static File file;
 
     @BeforeAll
@@ -37,7 +40,7 @@ public class Sql2oVacancyRepositoryTest {
 
         var configuration = new DatasourceConfiguration();
         var datasource = configuration.connectionPool(url, username, password);
-        var sql2o = configuration.databaseClient(datasource);
+        sql2o = configuration.databaseClient(datasource);
 
         sql2oVacancyRepository = new Sql2oVacancyRepository(sql2o);
         sql2oFileRepository = new Sql2oFileRepository(sql2o);
@@ -54,9 +57,9 @@ public class Sql2oVacancyRepositoryTest {
 
     @AfterEach
     public void clearVacancies() {
-        var vacancies = sql2oVacancyRepository.findAll();
-        for (var vacancy : vacancies) {
-            sql2oVacancyRepository.deleteById(vacancy.getId());
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("TRUNCATE TABLE vacancies");
+            query.executeUpdate();
         }
     }
 

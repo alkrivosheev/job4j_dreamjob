@@ -5,10 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.model.IModel;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.UserService;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @ThreadSafe
 @Controller
@@ -26,12 +30,24 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user) {
+    public String register(@ModelAttribute User user, Model model) {
         try {
-            userService.save(user);
+            var savedUser = userService.save(user);
+            if (savedUser.isEmpty()) {
+                model.addAttribute("errorMessage", "Пользователь с такой почтой уже существует");
+                return "errors/500";
+            }
             return "redirect:/index";
         } catch (Exception exception) {
-            return "errors/404";
+            model.addAttribute("errorMessage", exception.getMessage());
+
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            exception.printStackTrace(pw);
+            String stackTrace = sw.toString();
+            model.addAttribute("stackTrace", stackTrace);
+
+            return "errors/500";
         }
     }
 }

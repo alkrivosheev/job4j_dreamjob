@@ -4,11 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.model.IModel;
-import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.User;
-import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.UserService;
 
 import java.io.PrintWriter;
@@ -49,5 +45,20 @@ public class UserController {
 
             return "errors/500";
         }
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage() {
+        return "users/login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute User user, Model model) {
+        var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (userOptional.isEmpty()) {
+            model.addAttribute("error", "Почта или пароль введены неверно");
+            return "users/login";
+        }
+        return "redirect:/vacancies";
     }
 }
